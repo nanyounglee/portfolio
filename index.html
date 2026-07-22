@@ -210,6 +210,18 @@
   }
   .quote .who { margin-top: 18px; font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--ink-3); font-style: normal; letter-spacing: 0.02em; }
 
+  /* RECOMMENDATION (featured) */
+  .recommend {
+    position: relative; background: var(--card); border: 1px solid var(--line);
+    border-top: 3px solid var(--accent); padding: 46px 52px 40px; margin-bottom: 52px; overflow: hidden;
+  }
+  .rec-mark { position: absolute; top: 6px; right: 40px; font-family: var(--serif); font-size: 130px; line-height: 1; color: var(--line-2); pointer-events: none; }
+  .rec-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; position: relative; z-index: 1; }
+  .rec-tags span { font-size: 11px; font-weight: 600; color: var(--accent); border: 1px solid var(--accent); padding: 5px 12px; letter-spacing: 0.03em; }
+  .rec-body { font-family: var(--serif-ko); font-size: 15.5px; line-height: 2.05; color: var(--ink); margin: 0 0 26px; max-width: 820px; position: relative; z-index: 1; }
+  .rec-who { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--ink-2); padding-top: 20px; border-top: 1px solid var(--line); }
+  .rec-who::before { content: "— "; color: var(--ink-3); }
+
   /* SELF INTRO */
   .self-intro-block { margin-bottom: 52px; display: grid; grid-template-columns: 1fr; gap: 0; }
   .self-intro-block:last-child { margin-bottom: 0; }
@@ -266,6 +278,8 @@
     .tl-item { grid-template-columns: 1fr; gap: 8px; }
     .kpi-row { border-left: 0; }
     .kpi-chip { border: 0; padding: 4px 22px 4px 0; }
+    .recommend { padding: 30px 22px 28px; }
+    .rec-mark { font-size: 80px; right: 18px; }
   }
 </style>
 </head>
@@ -498,21 +512,29 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-eyebrow">RECOGNITION</div>
-      <h2>리더 평가</h2>
-      <div class="sec-sub">최근 정기 성과역량평가 리더 코멘트 발췌</div>
+      <h2>추천사 &amp; 리더 평가</h2>
+      <div class="sec-sub">함께 일한 동료와 리더가 직접 남긴 평가입니다.</div>
     </div>
+
+    <div class="recommend">
+      <div class="rec-mark">&ldquo;</div>
+      <div class="rec-tags"><span>문제해결 능력</span><span>유연성</span><span>커뮤니케이션</span></div>
+      <p class="rec-body">난영님과 타라그래픽스 PM서비스팀에서 약 1년간 함께 일했습니다. 함께한 시간은 여러 가지 이유로 매우 즐겁고 성취감 있는 시간이었고, 그동안 난영님의 특장점 세 가지를 느꼈습니다. 첫째, 난영님은 매우 유쾌하고 주변 사람들과 소통하실 때 매우 매력적이었습니다. 높은 에너지는 전염성이 있어 주변 분위기를 활기차게 만들어주었습니다. 둘째, 모든 업무에 매우 전문적으로 접근했습니다. 저는 다양한 인쇄물을 기획·제안하고 영업하는 포지션이라 모든 공정을 습득하고 협력사를 확보하기 어려웠는데, 난영님이 갖춘 전문적인 인쇄 지식과 파주·충무로 서플라이어 발굴, 다양한 재료에 대한 이해 덕분에 제안한 프로젝트를 무리 없이 진행할 수 있었습니다. 예를 들면, 플라스틱 카드를 동봉해 VIP 봉투를 발송해야 하는 명품 브랜드 C사 프로젝트에서 카드를 안정적으로 고정하기 위해 적절한 점착도의 리무버블 테이프를 제안해주셨습니다. 고객 기준에 부합하는 사양을 찾기가 매우 어려운데도 자신 있게 제안할 수 있었고, 인쇄물과 관련된 재료·물성에 대한 깊은 지식에 놀랐습니다. 마지막으로, 프로젝트 관리와 협상에 뛰어난 능력을 보여주셨습니다. 연말 '연간 판촉물' 성수기에는 대부분의 인쇄소에 물량이 몰리는데, 일정을 챙기고 필요에 따라 협력사를 채근하는 등 우선순위를 명확히 파악하고 리소스를 효율적으로 분배하셨습니다. 이는 기한을 준수하면서 품질을 유지하는 데 기여했고, 팀 성과와 고객 만족도에도 도움이 되었습니다. 대량 건은 규모에 압도되기 쉬운데, 어떤 도전적인 상황에서도 난영님의 프로젝트 관리 능력은 효과적으로 작동했습니다. 퇴사 이후 각자 다른 직장에 있음에도 서로 인쇄 관련 질문을 주고받으며 업계 이야기를 공유해 서로의 전문성에 도움이 되고 있습니다. 전 직장 동료로서 난영님을 주저 없이 추천하며, 어떤 조직이든 난영님의 전문성을 활용하는 것은 이익이 될 것입니다.</p>
+      <div class="rec-who">전 타라그래픽스 PM서비스팀 동료 · 현 크레비스파트너스 재직</div>
+    </div>
+
     <div class="quotes">
       <div class="quote">
         "상반기에 파트리더로서 기존의 지식에 머무르지 않고, 이를 확장하여 AI를 활용한 시스템과 프로세스 개선까지 추진하고 있는 점을 높게 평가할 수 있습니다."
-        <div class="who">— 대표이사, 2026년 상반기</div>
+        <div class="who">— 대표이사</div>
       </div>
       <div class="quote">
         "경력직으로서 신시어리의 운영 표준화, 전문성 기준의 향상을 기대하며 함께 업무를 시작했습니다. 결과적으로 기존 신시어리가 갖추지 못한 생산관리에 대한 체계와 납기관리 프로세스 등의 기준을 높이는데 기여하셨다고 판단합니다."
-        <div class="who">— 대표이사, 정기 성과평가</div>
+        <div class="who">— 대표이사</div>
       </div>
       <div class="quote">
         "전문성을 기반으로 맡은 역할을 성실하게, 실행력을 바탕으로 좋은 성과를 보여주었습니다. 가지고 있는 강점들을 파트에 확장하여 전파할 수 있을 것으로 기대합니다."
-        <div class="who">— 담당본부 실장, 정기 성과평가</div>
+        <div class="who">— 담당본부 실장</div>
       </div>
     </div>
   </div>
@@ -523,7 +545,7 @@
     <div class="sec-head">
       <div class="sec-eyebrow">SELF-INTRODUCTION</div>
       <h2>자기소개서</h2>
-      <div class="sec-sub">최근 정기 성과평가에 기록된 실제 사례를 바탕으로 작성했습니다.</div>
+      <div class="sec-sub">제가 일하는 방식과 지향점을 네 가지 이야기로 정리했습니다.</div>
     </div>
 
     <div class="self-intro-block">
