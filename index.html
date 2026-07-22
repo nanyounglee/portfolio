@@ -203,6 +203,24 @@
   .shot-frame img, .career-gallery img, .gal-item img { cursor: zoom-in; }
   .lb-hint { display: block; font-size: 11px; color: var(--ink-3); margin-top: 8px; letter-spacing: 0.02em; }
 
+  /* MOTION */
+  html.js [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); will-change: opacity, transform; }
+  html.js [data-reveal].in { opacity: 1; transform: none; }
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 60; transition: width .12s linear; }
+  .navlinks a { transition: color .18s ease; }
+  .navlinks a.active { color: var(--accent); }
+  header.hero .wrap > * { animation: heroIn 1s cubic-bezier(.22,.61,.36,1) both; }
+  header.hero .wrap > *:nth-child(2) { animation-delay: .08s; }
+  header.hero .wrap > *:nth-child(3) { animation-delay: .16s; }
+  @keyframes heroIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  html.js header.hero::before { animation: kenburns 20s ease-out both; }
+  @keyframes kenburns { from { transform: scale(1.03); } to { transform: scale(1.12); } }
+  @media (prefers-reduced-motion: reduce) {
+    html.js [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+    header.hero .wrap > *, html.js header.hero::before { animation: none !important; }
+    #progress { display: none; }
+  }
+
   /* TIMELINE */
   .timeline { display: flex; flex-direction: column; gap: 0; }
   .tl-item { display: grid; grid-template-columns: 200px 1fr; gap: 32px; padding: 32px 0; border-top: 1px solid var(--line); }
@@ -723,6 +741,8 @@
   </div>
 </footer>
 
+<div id="progress"></div>
+
 <div class="lightbox" id="lb" aria-hidden="true">
   <button type="button" class="lb-close" aria-label="닫기">&times;</button>
   <img alt="대시보드 스냅샷">
@@ -746,6 +766,75 @@
   });
   lb.addEventListener('click', function (e) { if (e.target !== lbImg) closeLB(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLB(); });
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+
+  // 1) scroll reveal
+  var sel = '.sec-head, .op-card, .strength, .subhead, .keyword-cloud, .kw-group-label, .project, .quote, .recommend, .tl-item, .self-intro-block, .gal-item, .career-extra';
+  var items = [].slice.call(document.querySelectorAll(sel));
+  items.forEach(function (el) { el.setAttribute('data-reveal', ''); });
+  if (reduce || !hasIO) {
+    items.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  // 2) number count-up (single-number values only)
+  function animateNum(el) {
+    var m = el.textContent.trim().match(/^(\D*)([\d,]+(?:\.\d+)?)(\D*)$/);
+    if (!m) return;
+    var pre = m[1], numStr = m[2], suf = m[3];
+    var decimals = (numStr.split('.')[1] || '').length;
+    var target = parseFloat(numStr.replace(/,/g, ''));
+    if (isNaN(target)) return;
+    var dur = 1100, t0 = null;
+    function fmt(v) {
+      var s = decimals ? v.toFixed(decimals) : String(Math.round(v));
+      var p = s.split('.'); p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return pre + p.join('.') + suf;
+    }
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var pr = Math.min((ts - t0) / dur, 1), eased = 1 - Math.pow(1 - pr, 3);
+      el.textContent = fmt(target * eased);
+      if (pr < 1) requestAnimationFrame(step); else el.textContent = fmt(target);
+    }
+    requestAnimationFrame(step);
+  }
+  var nums = [].slice.call(document.querySelectorAll('.mini-stat .num, .kpi-chip b'));
+  if (!reduce && hasIO) {
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { animateNum(e.target); io2.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    nums.forEach(function (n) { io2.observe(n); });
+  }
+
+  // 3) scroll progress + nav scroll-spy
+  var prog = document.getElementById('progress');
+  var navA = [].slice.call(document.querySelectorAll('.navlinks a[href^="#"]'));
+  var secs = navA.map(function (a) { try { return document.querySelector(a.getAttribute('href')); } catch (e) { return null; } });
+  function onScroll() {
+    var h = document.documentElement;
+    var sc = h.scrollTop || document.body.scrollTop || 0;
+    var max = h.scrollHeight - h.clientHeight;
+    if (prog) prog.style.width = (max > 0 ? (sc / max * 100) : 0) + '%';
+    var mid = sc + window.innerHeight * 0.35, idx = -1;
+    secs.forEach(function (s, i) { if (s && s.offsetTop <= mid) idx = i; });
+    navA.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
 })();
 </script>
 
