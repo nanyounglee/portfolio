@@ -222,6 +222,7 @@
     #progress { display: none; }
   }
 
+  /* TABLET (768–980px): denser desktop grids get a mid-step, not a straight jump to mobile's 1-col */
   @media (max-width: 980px) {
     .hero-inner { grid-template-columns: 1fr; gap: 34px; }
     .hero-photo-wrap { justify-self: start; order: -1; }
@@ -230,24 +231,37 @@
     .strengths { grid-template-columns: repeat(2, 1fr); }
     .gal-grid { grid-template-columns: repeat(2, 1fr); }
     .foot-grid { grid-template-columns: 1fr; }
+    .mini-stats { grid-template-columns: repeat(3, 1fr); gap: 10px 0; }
+    .shots { grid-template-columns: repeat(2, 1fr); }
   }
+  /* MOBILE (≤700px): distinct layout, not just a shrunken desktop */
   @media (max-width: 700px) {
-    .wrap { padding: 0 20px; }
-    section { padding: 56px 0; }
-    h2 { font-size: 26px; }
-    h1.name { font-size: 30px; }
-    .kw-stack span { font-size: 22px; }
+    .wrap { padding: 0 18px; }
+    section { padding: 48px 0; }
+    h2 { font-size: 24px; }
+    h1.name { font-size: 28px; }
+    .kw-stack span { font-size: 20px; }
+    .hero-cta { gap: 16px; font-size: 11px; }
+    nav .wrap { height: 56px; }
+    .brand { font-size: 15px; }
+    .navlinks { gap: 16px; }
+    .navlinks a:not(.nav-dl) { display: none; }
+    .nav-dl { font-size: 12px; padding: 7px 13px; }
     .info-grid { grid-template-columns: repeat(2, 1fr); }
     .ops { grid-template-columns: 1fr; }
     .strengths { grid-template-columns: 1fr; }
     .mini-stats { grid-template-columns: repeat(2, 1fr); gap: 10px 0; }
-    .shots, .shots.two { grid-template-columns: 1fr; }
+    .shots, .shots.two { grid-template-columns: 1fr; gap: 12px; padding: 0 18px 20px; }
     .quotes { grid-template-columns: 1fr; }
     .tl-item { grid-template-columns: 1fr; gap: 8px; }
     .gal-grid { grid-template-columns: repeat(2, 1fr); }
-    .recommend { padding: 30px 22px 28px; }
-    .rec-mark { font-size: 80px; right: 16px; }
-    .kpi-row { padding-bottom: 18px; }
+    .recommend { padding: 26px 18px 24px; }
+    .rec-mark { font-size: 70px; right: 14px; }
+    .kpi-row { padding: 0 18px 18px; }
+    .project-head { padding: 22px 18px 0; }
+    .project p.desc { padding: 0 18px; }
+    .project-foot { padding: 0 18px 22px; }
+    .project h3 { font-size: 21px; }
   }
 </style>
 </head>
