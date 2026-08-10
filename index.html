@@ -297,6 +297,7 @@
   .ach-cell:hover { background: var(--bg-alt); }
   .ach-num { font-size: 38px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; color: var(--accent); }
   .ach-lbl { font-size: 13.5px; font-weight: 800; margin-top: 10px; letter-spacing: -0.01em; color: var(--ink); }
+  .ach-basis { display: block; font-size: 10.5px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; margin-top: 4px; }
   .ach-desc { font-size: 12.5px; color: var(--ink-2); margin-top: 8px; line-height: 1.6; }
 
   /* COMPETENCY / OPERATION / EDUCATION CARDS */
@@ -342,6 +343,8 @@
 
   /* PROCESS STEPS */
   .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .step-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .inline-link { border-bottom: 1px solid var(--accent); color: var(--accent); font-weight: 700; }
   .step { background: var(--bg); border: 1px solid var(--line); padding: 26px 22px; transition: transform .2s ease, box-shadow .2s ease; }
   .step:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
   .step .no { font-size: 11px; font-weight: 800; letter-spacing: 0.16em; color: var(--accent); }
@@ -378,7 +381,7 @@
 
   @media (max-width: 980px) {
     .ach-grid { grid-template-columns: repeat(2, 1fr); }
-    .comp-grid, .comp-grid.three, .step-grid { grid-template-columns: repeat(2, 1fr); }
+    .comp-grid, .comp-grid.three, .step-grid, .step-grid.three { grid-template-columns: repeat(2, 1fr); }
     .pj-flow { grid-template-columns: 1fr; gap: 0; }
     .mini-grid.four { grid-template-columns: repeat(2, 1fr); }
     .vision-list { grid-template-columns: 1fr; border-left: none; }
@@ -388,7 +391,7 @@
     .ach-grid { grid-template-columns: 1fr; }
     .ach-cell { padding: 24px 20px; }
     .ach-num { font-size: 32px; }
-    .comp-grid, .comp-grid.three, .step-grid { grid-template-columns: 1fr; }
+    .comp-grid, .comp-grid.three, .step-grid, .step-grid.three { grid-template-columns: 1fr; }
     .mini-grid.three, .mini-grid.four { grid-template-columns: 1fr; }
     .ba-grid { grid-template-columns: 1fr; }
     .info-grid.gated { grid-template-columns: 1fr; }
@@ -435,7 +438,7 @@
         </p>
         <div class="hero-stats">
           <div class="hero-stat"><div class="n">연 100억</div><div class="l">매입 규모</div></div>
-          <div class="hero-stat"><div class="n">226개</div><div class="l">누적 관리 협력사</div></div>
+          <div class="hero-stat"><div class="n">226개</div><div class="l">누적 협력사 (2014~현재)</div></div>
           <div class="hero-stat"><div class="n">15%</div><div class="l">매출원가 절감</div></div>
         </div>
         <p class="role-line">SCM팀 외주생산파트 파트장 · 총 경력 11년 8개월</p>
@@ -485,7 +488,7 @@
       <div class="op-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5z"/><path d="M3 7l9 5 9-5"/><path d="M12 12v10"/></svg></div>
         <h4>01 · SCM &amp; 외주생산</h4>
-        <p>연 100억 규모 제품 매입·발주 및 외주생산 관리, 누적 226개 제작 협력사 운영</p>
+        <p>연 100억 규모 제품 매입·발주 및 외주생산 관리 — 누적 226개(2014~현재), 현재 146개 제작 협력사 운영</p>
       </div>
       <div class="op-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v20l-2-1.5L14 22l-2-1.5L10 22l-2-1.5L6 22V2z"/><path d="M9 8h6M9 12h6"/></svg></div>
@@ -495,7 +498,7 @@
       <div class="op-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.4 6h7.2M7.4 8.2l3.4 7.6M16.6 8.2l-3.4 7.6"/></svg></div>
         <h4>03 · Vendor Management</h4>
-        <p>신규 협력사 발굴·신용평가·CAPA 검토, 170개 협력사 QCD 정량 평가체계 설계</p>
+        <p>신규 협력사 발굴·신용평가·CAPA 검토, QCD 정량 평가체계 설계(평가 대상 170개)</p>
       </div>
       <div class="op-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></div>
@@ -527,8 +530,8 @@
       </div>
       <div class="ach-cell">
         <div class="ach-num">226개</div>
-        <div class="ach-lbl">누적 관리 협력사</div>
-        <div class="ach-desc">인쇄·패키지·완구·패브릭 등 다양한 제조 영역의 협력사 발굴 및 운영</div>
+        <div class="ach-lbl">누적 관리 협력사 <span class="ach-basis">2014~현재 · 4개 사 합산</span></div>
+        <div class="ach-desc">인쇄·패키지·완구·패브릭 등 다양한 제조 영역의 협력사 발굴 및 운영 — 현 소속 기준으로는 146개(활성 98개)를 관리하고 있습니다.</div>
       </div>
       <div class="ach-cell">
         <div class="ach-num">15%</div>
@@ -698,10 +701,18 @@
         <div class="pj-block" style="grid-column:1/-1;">
           <div class="pj-lbl">Result</div>
           <ul>
-            <li><b>170개 협력사</b> 정량 평가체계 구축 — <b>146개 등록 · 98개 활성</b> 협력사 운영</li>
+            <li>협력사 <b>QCD 정량 평가체계</b> 구축 — 평가 대상 <b>170개</b></li>
             <li>협력사별 <b>QCD 성적표 분기 자동 발행</b></li>
             <li>담당자의 주관적 판단을 줄이고, 공급망을 데이터 기반으로 관리할 수 있는 공통 기준을 마련</li>
           </ul>
+        </div>
+        <div class="pj-block" style="grid-column:1/-1;">
+          <div class="pj-lbl">협력사 수 기준</div>
+          <div class="mini-grid three">
+            <div class="mini-box"><div class="t">누적 226개</div><div class="d">2014~현재 전체 경력 기준 · 4개 사 합산<br>디자인하우스 20 · 타라그래픽스 40 · 타임교육 20 · 신시어리 146</div></div>
+            <div class="mini-box hi"><div class="t">현재 146개</div><div class="d">현 소속 등록 협력사<br>이 중 활성 거래 98개</div></div>
+            <div class="mini-box hi"><div class="t">평가 대상 170개</div><div class="d">QCD 정량 평가체계 적용 대상<br>Core 6 · Performer 5 · Developing 28 · General 107</div></div>
+          </div>
         </div>
       </div>
       <div class="shots two">
@@ -766,7 +777,8 @@
           <div class="pj-lbl">Result</div>
           <ul>
             <li><b>8개 대분류 · 20개 화면</b> / <b>27종</b> 데이터 소스 통합</li>
-            <li>검수 유출률 <b>75%</b> 최초 정량화 · 이슈 → 협력사 귀속 정확도 <b>95.6%</b></li>
+            <li>이슈 → 협력사 <b>귀속 정확도 95.6%</b> — 이슈 원인을 협력사 단위로 객관적으로 식별</li>
+            <li><b>검수 유출률 75%</b> 최초 정량화 — 생산 이슈 <b>134건 중 101건</b>이 사내 검수에서 걸러지지 않고 다음 단계로 넘어간 비율. 검수 공정의 실효성을 처음으로 수치화한 지표입니다.</li>
             <li>버퍼 발주 추천 <b>56건</b> 실증</li>
           </ul>
         </div>
@@ -924,29 +936,24 @@
     <div class="sec-head">
       <div class="sec-eyebrow">Leadership</div>
       <h2>실무를 이해하고,<br>조직의 기준을 설계하는 리더</h2>
-      <div class="sec-sub">저는 지시를 전달하는 관리자보다, 팀이 더 나은 판단을 할 수 있도록 기준을 만드는 리더를 지향합니다.</div>
+      <div class="sec-sub">지시를 전달하는 관리자보다, 팀이 더 나은 판단을 할 수 있도록 기준을 만드는 리더를 지향합니다. 실제 사례는 <a href="#projects" class="inline-link">Project 02 · 04</a>에서 확인하실 수 있습니다.</div>
     </div>
 
-    <div class="step-grid">
+    <div class="step-grid three">
       <div class="step">
         <div class="no">01</div>
-        <h4>방향을 제시합니다</h4>
-        <p>문제의 현상보다 원인을 먼저 질문하고, 팀이 해결해야 할 핵심 과제를 정의합니다.</p>
+        <h4>방향을 정의합니다</h4>
+        <p>현상보다 원인을 먼저 질문하고, 팀이 해결해야 할 핵심 과제를 정의합니다.</p>
       </div>
       <div class="step">
         <div class="no">02</div>
-        <h4>강점을 기준으로 역할을 설계합니다</h4>
-        <p>파트원의 강점과 성장 방향을 고려해 R&amp;R을 설계하고, 각자가 스스로 문제를 해결할 수 있도록 지원합니다.</p>
+        <h4>강점 기준으로 역할을 설계합니다</h4>
+        <p>파트원의 강점에 맞춰 R&amp;R을 설계하고, 스스로 문제를 해결하도록 지원합니다.</p>
       </div>
       <div class="step">
         <div class="no">03</div>
         <h4>실무와 경영을 연결합니다</h4>
-        <p>현장에서 발생한 데이터를 상위 리더가 판단할 수 있는 KPI와 인사이트로 변환합니다.</p>
-      </div>
-      <div class="step">
-        <div class="no">04</div>
-        <h4>개인의 노하우를 조직의 자산으로 만듭니다</h4>
-        <p>특정 담당자의 경험에 의존하지 않고 평가 기준·프로세스·시스템으로 남겨, 조직 전체가 반복해서 사용할 수 있도록 합니다.</p>
+        <p>현장 데이터를 상위 리더가 판단할 수 있는 KPI와 인사이트로 변환합니다.</p>
       </div>
     </div>
 
@@ -957,7 +964,6 @@
         <div>문제가 발생하기 전에<br>리스크를 발견하는 공급망</div>
         <div>데이터를 보고<br>더 빠르게 결정하는 조직</div>
       </div>
-      <p style="margin-top:26px;">저는 실무를 잘하는 사람에서 멈추지 않고, 조직의 운영 수준 자체를 높이는 SCM 리더로 성장해왔습니다.</p>
     </div>
   </div>
 </section>
