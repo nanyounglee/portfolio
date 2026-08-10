@@ -341,6 +341,20 @@
   .mini-box .t { font-size: 12.5px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); }
   .mini-box .d { font-size: 11.5px; color: var(--ink-2); margin-top: 5px; line-height: 1.5; }
 
+  /* WORK PHILOSOPHY */
+  .phil-chart-wrap { background: var(--bg); border: 1px solid var(--line); padding: 26px 30px 22px; margin-top: 18px; }
+  section:nth-of-type(odd) .phil-chart-wrap { background: var(--bg-alt); }
+  .phil-chart { display: block; width: 100%; height: auto; }
+  .phil-legend { display: none; gap: 8px 18px; flex-wrap: wrap; margin-top: 14px; font-size: 12.5px; font-weight: 700; }
+  .phil-legend .pl { display: inline-flex; align-items: center; gap: 7px; color: var(--ink-2); }
+  .phil-legend i { display: block; width: 22px; height: 3px; background: var(--accent); flex: none; }
+  .phil-legend .expect i { height: 2px; background: repeating-linear-gradient(90deg, var(--muted) 0 5px, transparent 5px 9px); }
+  .phil-legend .gap i { height: 12px; opacity: 0.16; }
+  .phil-cap { font-size: 13px; color: var(--ink-2); line-height: 1.8; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .phil-cap b { color: var(--ink); font-weight: 800; }
+  #philosophy .op-card h4 { border-left: 4px solid var(--accent); padding-left: 12px; margin-bottom: 12px; }
+  #philosophy .op-card p b { color: var(--ink); font-weight: 800; }
+
   /* PROCESS STEPS */
   .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
   .step-grid.three { grid-template-columns: repeat(3, 1fr); }
@@ -386,6 +400,9 @@
     .mini-grid.four { grid-template-columns: repeat(2, 1fr); }
     .vision-list { grid-template-columns: 1fr; border-left: none; }
     .vision-list div { border-right: none; border-left: 1px solid rgba(255,255,255,0.18); padding: 8px 20px; }
+    /* below ~980px the chart scales down enough that in-SVG labels get too small — use the HTML legend */
+    .phil-chart text { display: none; }
+    .phil-legend { display: flex; }
   }
   @media (max-width: 700px) {
     .ach-grid { grid-template-columns: 1fr; }
@@ -397,6 +414,8 @@
     .info-grid.gated { grid-template-columns: 1fr; }
     .statement { padding: 24px 20px; }
     .statement p { font-size: 15px; }
+    .phil-chart-wrap { padding: 18px 16px 16px; }
+    .phil-cap { font-size: 12.5px; }
     .pj-flow { padding: 0 18px; }
     .pj-what { margin: 12px 18px 22px; padding: 16px 18px; }
     .hero-stats { gap: 12px 0; }
@@ -889,6 +908,59 @@
   </div>
 </section>
 
+<section id="philosophy">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Work Philosophy</div>
+      <h2>기대 수준과 보증 수준을<br>함께 우상향시키는 일</h2>
+      <div class="sec-sub">제가 공급망을 볼 때 가장 먼저 확인하는 두 개의 선입니다.</div>
+    </div>
+
+    <div class="ops">
+      <div class="op-card">
+        <h4>기대 수준</h4>
+        <p>조직과 고객이 우리에게 기대하는 품질·납기·원가의 수준입니다. 사업이 커지고 제품이 늘어나면 이 선은 가만히 두어도 계속 올라갑니다.</p>
+      </div>
+      <div class="op-card">
+        <h4>보증 수준</h4>
+        <p>담당자가 바뀌어도, 성수기가 겹쳐도 <b>우리가 실제로 지킬 수 있다고 약속할 수 있는</b> 수준입니다. 이 선은 저절로 올라가지 않습니다.</p>
+      </div>
+    </div>
+
+    <div class="phil-chart-wrap">
+      <svg viewBox="0 0 1000 300" class="phil-chart" role="img" aria-label="시간이 지날수록 기대 수준과 보증 수준이 함께 올라가고, 두 선 사이의 간격이 좁아지는 그래프">
+        <line x1="70" y1="30" x2="70" y2="248" stroke="var(--line-2)" stroke-width="1.5"/>
+        <line x1="70" y1="248" x2="960" y2="248" stroke="var(--line-2)" stroke-width="1.5"/>
+        <path d="M70,168 C300,132 580,86 950,44 L950,74 C580,124 300,178 70,216 Z" fill="var(--accent)" opacity="0.09"/>
+        <path d="M70,168 C300,132 580,86 950,44" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-dasharray="7 6" stroke-linecap="round"/>
+        <path d="M70,216 C300,178 580,124 950,74" fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="950" cy="44" r="5" fill="var(--muted)"/>
+        <circle cx="950" cy="74" r="6.5" fill="var(--accent)"/>
+        <text x="934" y="32" text-anchor="end" font-size="15" font-weight="700" fill="var(--muted)">기대 수준</text>
+        <text x="934" y="112" text-anchor="end" font-size="15" font-weight="800" fill="var(--accent)">보증 수준</text>
+        <text x="118" y="179" font-size="13" font-weight="600" fill="var(--ink-2)">사람이 메꾸는 영역</text>
+        <text x="70" y="20" font-size="12.5" fill="var(--muted)">수준 ↑</text>
+        <text x="960" y="272" text-anchor="end" font-size="12.5" fill="var(--muted)">시간 · 조직의 성숙도 →</text>
+      </svg>
+      <div class="phil-legend" aria-hidden="true">
+        <span class="pl expect"><i></i>기대 수준</span>
+        <span class="pl assure"><i></i>보증 수준</span>
+        <span class="pl gap"><i></i>사람이 메꾸는 영역</span>
+      </div>
+      <div class="phil-cap">
+        두 선 사이의 간격은 결국 사람이 메꿉니다. 기대만 올라가고 보증이 따라오지 못하면 매번 담당자의 경험과 야근으로 버티게 되고, 그 상태는 오래가지 못합니다.
+        그래서 저는 목표를 높이는 일보다 <b>지킬 수 있는 범위를 넓히는 일</b>을 먼저 합니다.
+      </div>
+    </div>
+
+    <div class="statement">
+      <div class="lbl">제가 하는 일</div>
+      <p>기대 수준을 뒤따라가는 것이 아니라,<br><em>보증 수준을 먼저 끌어올리는 것</em>.</p>
+      <p>기준을 만들고, 데이터로 측정하고, 프로세스로 고정해 조직이 약속할 수 있는 범위 자체를 넓혀왔습니다. 이어지는 Process Innovation과 Projects가 그 기록입니다.</p>
+    </div>
+  </div>
+</section>
+
 <section id="process">
   <div class="wrap">
     <div class="sec-head">
@@ -920,7 +992,7 @@
       </div>
     </div>
 
-    <div class="subhead">대표 사례</div>
+    <div class="subhead">보증 수준을 올린 사례</div>
     <div class="ba-grid">
       <div class="ba-cell"><div class="t">협력사 QCD 평가체계</div><div class="f">경험 중심 → <b>정량 평가</b></div></div>
       <div class="ba-cell"><div class="t">발주시안 검토 프로세스</div><div class="f">사후 대응 → <b>사전 예방</b></div></div>
