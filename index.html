@@ -422,8 +422,54 @@
     .hero-stat .n { font-size: 22px; }
   }
 </style>
+<style id="ny-intro-css">
+  /* ===== INTRO VIDEO GATE ===== */
+  body.ny-lock { overflow: hidden; }
+  #ny-intro { position: fixed; inset: 0; z-index: 9999; background: #fff; display: flex; align-items: center; justify-content: center;
+    font-family: var(--sans); color: var(--ink); transition: opacity .6s ease, visibility .6s ease; }
+  #ny-intro.ny-out { opacity: 0; visibility: hidden; }
+  #ny-intro .ny-start { text-align: center; padding: 0 28px; transition: opacity .35s ease; }
+  #ny-intro .ny-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .12em; color: var(--muted); }
+  #ny-intro .ny-name { font-size: clamp(56px, 11vw, 112px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin: 14px 0 10px; }
+  #ny-intro .ny-sub { font-size: 16px; color: var(--ink-2); margin: 0 0 40px; }
+  #ny-intro .ny-play { display: inline-flex; align-items: center; gap: 12px; background: var(--ink); color: #fff; border: 0; cursor: pointer;
+    font: inherit; font-size: 16px; font-weight: 700; padding: 18px 34px; letter-spacing: .02em; transition: background .18s ease; }
+  #ny-intro .ny-play:hover { background: var(--accent); }
+  #ny-intro .ny-play svg { width: 14px; height: 14px; }
+  #ny-intro .ny-play small { font-weight: 500; opacity: .7; }
+  #ny-intro .ny-skiplink { display: block; margin: 22px auto 0; background: none; border: 0; cursor: pointer; font: inherit;
+    font-size: 14px; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--line-2); padding: 2px 0; }
+  #ny-intro .ny-skiplink:hover { color: var(--accent); border-color: var(--accent); }
+  #ny-intro video { display: none; height: 100%; max-width: 100%; object-fit: contain; background: #fff; }
+  #ny-intro.ny-playing .ny-start { display: none; }
+  #ny-intro.ny-playing video { display: block; }
+  #ny-intro .ny-skip { position: absolute; top: 20px; right: 20px; display: none; background: rgba(255,255,255,.92); color: var(--ink);
+    border: 1px solid var(--line-2); cursor: pointer; font: inherit; font-size: 13px; font-weight: 700; padding: 10px 16px; letter-spacing: .02em; }
+  #ny-intro .ny-skip:hover { color: var(--accent); border-color: var(--accent); }
+  #ny-intro.ny-playing .ny-skip { display: block; }
+  #ny-intro .ny-bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); display: none; }
+  #ny-intro.ny-playing .ny-bar { display: block; }
+</style>
 </head>
-<body>
+<body class="ny-lock">
+
+<!-- ===== INTRO VIDEO GATE ===== -->
+<div id="ny-intro" role="dialog" aria-label="인트로 영상">
+  <div class="ny-start">
+    <div class="ny-eyebrow">SCM · 구매/조달 · 외주생산관리</div>
+    <div class="ny-name">이난영</div>
+    <p class="ny-sub">찾고 계신 SCM 담당자, 1분 안에 소개합니다</p>
+    <button class="ny-play" type="button" id="nyPlay">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 1 L13 7 L2 13 Z" fill="currentColor"/></svg>
+      영상 보고 입장 <small>58초 · 소리 있음</small>
+    </button>
+    <button class="ny-skiplink" type="button" id="nySkipStart">바로 포트폴리오 보기</button>
+  </div>
+  <video id="nyVideo" src="intro.mp4" poster="intro-poster.jpg" playsinline preload="auto"></video>
+  <button class="ny-skip" type="button" id="nySkip">건너뛰기 →</button>
+  <div class="ny-bar" id="nyBar"></div>
+</div>
+
 
 <nav>
   <div class="wrap">
@@ -1352,6 +1398,46 @@
       pwError.hidden = true;
     });
   }
+})();
+</script>
+
+<script>
+/* ===== INTRO VIDEO GATE ===== */
+(function () {
+  var gate = document.getElementById('ny-intro');
+  if (!gate) return;
+  var video = document.getElementById('nyVideo');
+  var bar = document.getElementById('nyBar');
+  var closed = false;
+
+  function enter() {
+    if (closed) return;
+    closed = true;
+    try { video.pause(); } catch (e) {}
+    gate.classList.add('ny-out');
+    document.body.classList.remove('ny-lock');
+    setTimeout(function () { if (gate.parentNode) gate.parentNode.removeChild(gate); }, 700);
+  }
+
+  document.getElementById('nyPlay').addEventListener('click', function () {
+    gate.classList.add('ny-playing');
+    video.muted = false;
+    var p = video.play();
+    if (p && p.catch) {
+      p.catch(function () {            // 소리 재생이 막힌 환경이면 무음으로라도 재생
+        video.muted = true;
+        video.play().catch(enter);    // 그래도 실패하면 바로 입장
+      });
+    }
+  });
+  document.getElementById('nySkipStart').addEventListener('click', enter);
+  document.getElementById('nySkip').addEventListener('click', enter);
+  video.addEventListener('ended', enter);
+  video.addEventListener('error', enter);
+  video.addEventListener('timeupdate', function () {
+    if (video.duration) bar.style.width = (video.currentTime / video.duration * 100) + '%';
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') enter(); });
 })();
 </script>
 
